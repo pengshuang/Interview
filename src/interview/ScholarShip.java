@@ -21,7 +21,7 @@ public class ScholarShip{
                 arr[i][1] = in.nextLong();//时间
                 score += arr[i][0];
             }
-            sort(arr);
+            sort(arr);//将arr从小到大进行排序
             long time = 0;
             int i = 0;
             while(score<total&&i<n){
