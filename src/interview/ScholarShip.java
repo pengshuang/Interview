@@ -1,8 +1,5 @@
 package interview;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Scanner;
 
 /**
@@ -38,11 +35,10 @@ public class ScholarShip {
                 }
             }
             System.out.println(time);
-
         }
         in.close();
     }
-    //对时间进行排序
+    //对时间进行排序(冒泡法)
     private static void sort(long[][]a){
 
         for(int i = 0;i<a.length-1;i++){
