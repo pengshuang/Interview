@@ -1,7 +1,7 @@
 *.class
 .settings
 bin
-leetcode_in_java.iml
+*.iml
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
