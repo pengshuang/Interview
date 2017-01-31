@@ -1,12 +1,15 @@
 package interview;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 /**
  * Created by pengshuang on 17/1/31.
- *
  */
-public class ScholarShip{
+
+public class ScholarShip {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {//注意while处理多个case
@@ -21,7 +24,7 @@ public class ScholarShip{
                 arr[i][1] = in.nextLong();//时间
                 score += arr[i][0];
             }
-            sort(arr);//将arr从小到大进行排序
+            sort(arr);
             long time = 0;
             int i = 0;
             while(score<total&&i<n){
@@ -39,8 +42,9 @@ public class ScholarShip{
         }
         in.close();
     }
-    //对时间进行排序(冒泡)
+    //对时间进行排序
     private static void sort(long[][]a){
+
         for(int i = 0;i<a.length-1;i++){
             boolean flag = true;
             for(int j = 0;j<a.length-1-i;j++){
