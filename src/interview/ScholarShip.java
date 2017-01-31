@@ -39,9 +39,8 @@ public class ScholarShip{
         }
         in.close();
     }
-    //对时间进行排序
-    public static void sort(long[][]a){
-
+    //对时间进行排序(冒泡)
+    private static void sort(long[][]a){
         for(int i = 0;i<a.length-1;i++){
             boolean flag = true;
             for(int j = 0;j<a.length-1-i;j++){
