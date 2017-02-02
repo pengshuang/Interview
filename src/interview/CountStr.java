@@ -2,11 +2,8 @@ package interview;
 
 import java.util.*;
 
-/**
- * Created by pengshuang on 17/2/2.
- */
 public class CountStr {
-    public static void main(String []args){
+    public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()){
             long result = 0;
