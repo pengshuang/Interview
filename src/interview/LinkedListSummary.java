@@ -3,6 +3,7 @@ package interview;
 import com.sun.glass.events.NpapiEvent;
 import util.Node;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 /**
@@ -158,5 +159,195 @@ public class LinkedListSummary {
         }
     }
 
+    /**
+     * 已知两个单链表pHead1 和pHead2 各自有序，把它们合并成一个链表依然有序
+     * 这个类似归并排序。尤其注意两个链表都为空，和其中一个为空时的情况。只需要O（1）的空间。时间复杂度为O（max(len1, len2)）
+     */
 
+    public static Node mergeSortList(Node head1, Node head2) {
+        if (head1 == null)
+            return head2;
+        if (head2 == null)
+            return head1;
+
+        Node mergeHead = null;
+        if (head1.val < head2.val){
+            mergeHead = head1;
+            head1 = head1.next;
+            mergeHead.next = null;
+        } else {
+            mergeHead = head2;
+            head2 = head2.next;
+            mergeHead.next = null;
+        }
+
+        Node mergeCur = mergeHead;
+        while (head1 != null && head2 != null) {
+            if (head1.val < head2.val){
+                mergeCur.next = head1;
+                head1 = head1.next;
+                mergeCur = mergeCur.next;
+                mergeCur.next = null;
+            } else {
+                mergeCur.next = head2;
+                head2 = head2.next;
+                mergeCur = mergeCur.next;
+                mergeCur.next = null;
+            }
+        }
+        if (head1 != null) {
+            mergeCur.next = head1;
+        } else {
+            mergeCur.next = head2;
+        }
+
+        return mergeHead;
+    }
+
+    public static Node mergeSortedListRec(Node head1, Node head2) {
+        if (head1 == null){
+            return head2;
+        }
+        if (head2 == null) {
+            return head1;
+        }
+        Node mergeHead = null;
+        if (head1.val < head2.val) {
+            mergeHead = head1;
+            mergeHead.next = mergeSortedListRec(head1.next, head2);
+        } else {
+            mergeHead = head2;
+            mergeHead.next = mergeSortedListRec(head1, head2.next);
+        }
+        return mergeHead;
+    }
+
+    public static boolean hasCycle(Node head) {
+        Node fast = head;
+        Node slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isIntersect(Node head1, Node head2) {
+        if (head1 == null || head2 == null) {
+            return false;
+        }
+        Node tail1 = head1;
+        while (tail1.next != null) {
+            tail1 = tail1.next;
+        }
+        Node tail2 = head2;
+        while (tail2.next != null) {
+            tail2 = tail2.next;
+        }
+        return tail1 == tail2;
+    }
+
+    public static Node getFirstCommonNode(Node head1, Node head2) {
+        if (head1 == null || head2 == null) {
+            return null;
+        }
+        int len1 = 1;
+        Node tail1 = head1;
+        while (tail1.next != null) {
+            tail1 = tail1.next;
+            len1++;
+        }
+
+        int len2 = 1;
+        Node tail2 = head2;
+        while (tail2.next != null) {
+            tail2 = tail2.next;
+            len2++;
+        }
+
+        if (tail1 != tail2) {
+            return null;
+        }
+
+        Node n1 = head1;
+        Node n2 = head2;
+
+        if (len1 > len2){
+            int k = len1 - len2;
+            while (k != 0) {
+                n1 = n1.next;
+                k--;
+            }
+        } else {
+            int k = len2 - len1;
+            while (k != 0) {
+                n2 = n2.next;
+                k--;
+            }
+        }
+        while (n1 != n2) {
+            n1 = n1.next;
+            n2 = n2.next;
+        }
+        return n1;
+    }
+
+    public static Node getFirstNodeInCycle(Node head) {
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast)
+                break;
+        }
+        if (fast == null || slow == null){
+            return null;
+        }
+        //现在，相遇点离环的开始处的距离等于链表头到环开始处的距离，
+        // 这样，我们把慢指针放在链表头，快指针保持在相遇点，然后
+        // 同速度前进，再次相遇点就是环的开始处！
+        slow = head;
+        while (slow != fast) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return fast;
+    }
+
+    public static Node getFirstNodeInCycleHashMap(Node head) {
+        HashMap<Node, Boolean> map = new HashMap<>();
+        while (head != null) {
+            if (map.get(head)) {
+                return head;
+            } else {
+                map.put(head, true);
+                head = head.next;
+            }
+        }
+        return head;
+    }
+
+    public void delete(Node head, Node toDelete) {
+        if (toDelete == null) {
+            return;
+        }
+        if (toDelete.next != null) {
+            toDelete.val = toDelete.next.val;
+            toDelete.next = toDelete.next.next;
+        } else {
+            if (head == toDelete){
+                head = null;
+            }else {
+                Node node = head;
+                while(node.next != toDelete){
+                    node = node.next;
+                }
+                node.next = null;
+            }
+        }
+    }
 }
