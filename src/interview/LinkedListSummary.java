@@ -331,19 +331,20 @@ public class LinkedListSummary {
         return head;
     }
 
-    public void delete(Node head, Node toDelete) {
-        if (toDelete == null) {
+    public void delete(Node head, Node toDelete){
+        if(toDelete == null){
             return;
         }
-        if (toDelete.next != null) {
-            toDelete.val = toDelete.next.val;
+        if(toDelete.next != null){          // 要删除的是一个中间节点
+            toDelete.val = toDelete.next.val;       // 将下一个节点的数据复制到本节点!
             toDelete.next = toDelete.next.next;
-        } else {
-            if (head == toDelete){
+        }
+        else{       // 要删除的是最后一个节点！
+            if(head == toDelete){       // 链表中只有一个节点的情况
                 head = null;
-            }else {
+            }else{
                 Node node = head;
-                while(node.next != toDelete){
+                while(node.next != toDelete){   // 找到倒数第二个节点
                     node = node.next;
                 }
                 node.next = null;
