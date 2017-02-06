@@ -1,5 +1,8 @@
 package interview;
 
+import com.sun.org.apache.regexp.internal.RE;
+import org.omg.CORBA.MARSHAL;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -31,8 +34,8 @@ public class BinaryReeSummary {
         r2.right = r5;
         r3.right = r6;
 
-        TreeNode count = getLastCommonParentRec(r1, r4, r5);
-        System.out.print(count.val);
+        Result count = getMaxDistanceRec(r1);
+        System.out.print(count.maxDistance);
     }
 
     private static class TreeNode {
@@ -475,5 +478,34 @@ public class BinaryReeSummary {
         }
 
         return commonInRight;
+    }
+
+    public static Result getMaxDistanceRec(TreeNode root){
+        if(root == null){
+            Result empty = new Result(0, -1);       // 目的是让调用方 +1 后，把当前的不存在的 (NULL) 子树当成最大深度为 0
+            return empty;
+        }
+
+        // 计算出左右子树分别最大距离
+        Result lmd = getMaxDistanceRec(root.left);
+        Result rmd = getMaxDistanceRec(root.right);
+
+        Result res = new Result();
+        res.maxDepth = Math.max(lmd.maxDepth, rmd.maxDepth) + 1;        // 当前最大深度
+        // 取情况A和情况B中较大值
+        res.maxDistance = Math.max(lmd.maxDepth+rmd.maxDepth+1, Math.max(lmd.maxDistance, rmd.maxDistance) );
+        return res;
+    }
+
+    private static class Result{
+        int maxDistance;
+        int maxDepth;
+        public Result() {
+        }
+
+        public Result(int maxDistance, int maxDepth) {
+            this.maxDistance = maxDistance;
+            this.maxDepth = maxDepth;
+        }
     }
 }
