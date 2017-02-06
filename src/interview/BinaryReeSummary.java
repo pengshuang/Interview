@@ -31,7 +31,8 @@ public class BinaryReeSummary {
         r2.right = r5;
         r3.right = r6;
 
-        levelTraversalRec(r1);
+        int count = getNodeNumKthLevelRec(r1, 2);
+        System.out.print(count);
     }
 
     private static class TreeNode {
@@ -249,5 +250,107 @@ public class BinaryReeSummary {
         dfs(root.right, level+1, ret);
     }
 
+    /**
+     * 求二叉树第K层的节点个数   递归解法：
+     * （1）如果二叉树为空或者k<1返回0
+     * （2）如果二叉树不为空并且k==1，返回1
+     * （3）如果二叉树不为空且k>1，返回root左子树中k-1层的节点个数与root右子树k-1层节点个数之和
+     *
+     * 求以root为根的k层节点数目 等价于 求以root左孩子为根的k-1层（因为少了root那一层）节点数目 加上
+     * 以root右孩子为根的k-1层（因为少了root那一层）节点数目
+     *
+     * 所以遇到树，先把它拆成左子树和右子树，把问题降解
+     *
+     */
 
+    public static int getNodeNumKthLevelRec(TreeNode root, int k) {
+        if (root == null || k < 1) {
+            return 0;
+        }
+        if (k == 1) {
+            return 1;
+        }
+        int numLeft = getNodeNumKthLevelRec(root.left, k - 1);
+        int numRight = getNodeNumKthLevelRec(root.right, k - 1);
+        return numLeft + numRight;
+    }
+
+    public static int getNodeNumKthLevel(TreeNode root, int k) {
+        if (root == null) {
+            return 0;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        int i = 1;
+        int currentLevelNodes = 1;
+        int nextLevelNodes = 0;
+
+        while (!queue.isEmpty() && i < k){
+            TreeNode cur = queue.remove();
+            currentLevelNodes--;
+            nextLevelNodes++;
+
+            if (cur.left != null){
+                queue.add(cur.left);
+                nextLevelNodes++;
+            }
+
+            if (cur.right != null){
+                queue.add(cur.right);
+                nextLevelNodes++;
+            }
+
+            if (currentLevelNodes == 0) {
+                currentLevelNodes = nextLevelNodes;
+                nextLevelNodes = 0;
+                i++;
+            }
+        }
+        return currentLevelNodes;
+    }
+
+    public static int getNodeNumLeafRec(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        if (root.left == null && root.right == null){
+            return 1;
+        }
+        return getNodeNumLeafRec(root.left) + getNodeNumLeafRec(root.right);
+    }
+
+    public static int getNodeNumLeaf(TreeNode root) {
+        if (root == null){
+            return 0;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        int leafNodes = 0;
+
+        while (!queue.isEmpty()) {
+            TreeNode cur = queue.remove();
+            if(cur.left != null){
+                queue.add(cur.left);
+            }
+            if(cur.right != null){
+                queue.add(cur.right);
+            }
+            if(cur.left == null && cur.right == null){
+                leafNodes++;
+            }
+        }
+        return leafNodes;
+    }
+
+    public static boolean isAVLRec(TreeNode root) {
+        if (root == null){
+            return true;
+        }
+        if (Math.abs(getDepthRec(root.left) - getDepthRec(root.right)) > 1){
+            return false;
+        }
+        return isAVLRec(root.left) && isAVLRec(root.right);
+    }
 }
