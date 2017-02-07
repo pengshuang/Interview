@@ -12,7 +12,7 @@ import java.util.jar.Pack200;
 /**
  * Created by pengshuang on 17/2/4.
  */
-public class BinaryReeSummary {
+public class BinaryTreeSummary {
     /*
                  1
                 / \
