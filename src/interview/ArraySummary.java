@@ -7,12 +7,15 @@ import java.util.Map;
  */
 public class ArraySummary {
     public static void main(String[] args){
-        int[] arr = new int[]{1,2,3,4,5};
+        int[] arr = new int[]{1,2,2,4,2};
         int count = sum(arr, arr.length);
         System.out.println(count);
 
         int [] res = SecondMax2(arr);
         System.out.println(res[1] + " " + res[0]);
+
+        int majority = majorityElement(arr);
+        System.out.println(majority);
     }
 
     private static int sum(int[] arr, int size){
@@ -52,5 +55,22 @@ public class ArraySummary {
         }
 
         return new int[]{arr[0], arr[1]};
+    }
+
+    private static int majorityElement(int[] arr){
+        int curV = arr[0];
+        int count = 1;
+        for(int i = 1; i < arr.length; i++){
+            if (arr[i] == curV)
+                count++;
+            else{
+                count--;
+                if (count < 0){
+                    curV = arr[i];
+                    count = 1;
+                }
+            }
+        }
+        return curV;
     }
 }
