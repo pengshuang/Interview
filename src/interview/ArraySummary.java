@@ -6,16 +6,18 @@ import java.util.Map;
  * Created by pengshuang on 17/2/7.
  */
 public class ArraySummary {
+    int[] buffer = new int[100];
+
     public static void main(String[] args){
-        int[] arr = new int[]{1,2,2,4,2};
-        int count = sum(arr, arr.length);
-        System.out.println(count);
+        int[] arr = new int[]{0};
+        int[] arr2 = new int[]{4,5};
+        char[] arr3 = new char[]{'a', 'b', 'c'};
+        int res = maxSubProduct(arr);
+        System.out.println(res);
 
-        int [] res = SecondMax2(arr);
-        System.out.println(res[1] + " " + res[0]);
+        StrReverse(arr3);
+        System.out.println(arr3);
 
-        int majority = majorityElement(arr);
-        System.out.println(majority);
     }
 
     private static int sum(int[] arr, int size){
@@ -72,5 +74,83 @@ public class ArraySummary {
             }
         }
         return curV;
+    }
+
+    private static int findCommon(int[] arr1, int[] arr2){
+        int i = 0;
+        int j = 0;
+        while (i < arr1.length && j < arr2.length) {
+            if (arr1[i] < arr2[j])
+                ++i;
+            else if (arr1[i] == arr2[j]) {
+                return arr1[i];
+            }
+            else {
+                ++j;
+            }
+        }
+        return 0;
+    }
+
+    private static int maxSubSum(int[] arr){
+        int curSum = 0;
+        int maxSum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (curSum + arr[i] < 0)
+                curSum = 0;
+            else {
+                curSum += arr[i];
+                maxSum = Math.max(maxSum, curSum);
+            }
+        }
+        return maxSum;
+    }
+
+    private static int maxSubProduct(int[] arr){
+        int maxProduct = 1; // max positive product at current position
+        int minProduct = 1; // min negative product at current position
+        int r = 1; // result, max multiplication totally
+        for (int i = 0; i < arr.length; i++){
+            if (arr[i] > 0){
+                maxProduct *= arr[i];
+                minProduct = Math.min(minProduct * arr[i], 1);
+            }
+            else if (arr[i] == 0){
+                maxProduct = 1;
+                minProduct = 1;
+            }
+            else {
+                int temp = maxProduct;
+                maxProduct = Math.max(minProduct * arr[i], 1);
+                minProduct = temp * arr[i];
+            }
+            r = Math.max(r, maxProduct);
+        }
+        return r;
+    }
+
+    private static void Reverse(int[] arr, int start, int end){
+        while (start < end){
+            int temp = arr[start];
+            arr[start++] = arr[end];
+            arr[end--] = temp;
+        }
+    }
+
+    private static void Shift(int[] arr, int k){
+        k %= arr.length;
+        Reverse(arr, 0, arr.length - k - 1);
+        Reverse(arr, arr.length - k, arr.length - 1);
+        Reverse(arr, 0, arr.length - 1);
+    }
+
+    private static void StrReverse(char[] arr){
+        int left = 0;
+        int right = arr.length - 1;
+        while (left < right){
+            char temp = arr[left];
+            arr[left++] = arr[right];
+            arr[right--] = temp;
+        }
     }
 }
