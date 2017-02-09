@@ -37,6 +37,6 @@ public class TwoStackQueue {
                 stackPop.push(stackPush.pop());
             }
         }
-        return stackPop.peek()
+        return stackPop.peek();
     }
 }
