@@ -1,5 +1,6 @@
 /**
  * Created by pengshuang on 17/2/9.
+ * 字符串的统计字符串
  */
 public class CountString {
     public static String getCountString(String str) {
