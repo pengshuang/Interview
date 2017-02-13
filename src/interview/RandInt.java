@@ -80,6 +80,7 @@ public class RandInt {
         return res;
     }
 
+    // 等概率随机产一个 0 - nMsys - 1 范围的数,只不过是用 m 进制来表达
     public int[] getRanMSysNumLessN(int[] nMSys, int m) {
         int[] res = new int[nMSys.length];
         int start = 0;
