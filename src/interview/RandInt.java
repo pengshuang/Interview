@@ -61,5 +61,52 @@ public class RandInt {
         return (int) (Math.random() * m) + 1;
     }
 
+    public int rand1ToN(int n, int m) {
+        int[] nMSys = getMSysNum(n - 1, m);
+        int[] randNum = getRanMSysNumLessN(nMSys, m);
+        return getNumFromMSysNum(randNum, m) + 1;
+    }
 
+    // 把 value 转成 m 进制数
+    public int[] getMSysNum(int value, int m) {
+        int[] res = new int[32];
+        int index = res.length - 1;
+        while (value != 0) {
+            res[index--] = value % m;
+            value = value / m;
+        }
+        return res;
+    }
+
+    public int[] getRanMSysNumLessN(int[] nMSys, int m) {
+        int[] res = new int[nMSys.length];
+        int start = 0;
+        while (nMSys[start] == 0) {
+            start++;
+        }
+        int index = start;
+        boolean lastEqual = true;
+        while (index != nMSys.length) {
+            res[index] = rand1ToM(m) - 1;
+            if (lastEqual) {
+                if (res[index] > nMSys[index]) {
+                    index = start;
+                    lastEqual = true;
+                    continue;
+                } else {
+                    lastEqual = res[index] == nMSys[index];
+                }
+            }
+            index ++;
+        }
+        return res;
+    }
+
+    public int getNumFromMSysNum(int[] mSysNum, int m) {
+        int res = 0;
+        for (int i = 0; i != mSysNum.length; i++) {
+            res = res * m + mSysNum[i];
+        }
+        return res;
+    }
 }
