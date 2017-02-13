@@ -55,6 +55,8 @@ public class RandInt {
 
     /*
         给定一个以等概率随机产生 1 ~ M 的随机函数 rand1ToM 如下:
+        如果 M >= N, 直接进入筛过程; 如果 M < N, 先进入"插空过程,
+        直到产生比 N 范围还大的随机范围之后,再进入筛过程
      */
 
     public int rand1ToM(int m) {
@@ -102,6 +104,7 @@ public class RandInt {
         return res;
     }
 
+    // 把 m 进制转换成十进制
     public int getNumFromMSysNum(int[] mSysNum, int m) {
         int res = 0;
         for (int i = 0; i != mSysNum.length; i++) {
