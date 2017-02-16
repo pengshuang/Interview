@@ -1,6 +1,8 @@
 package interview;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,4 +39,27 @@ public class Permutations {
             list.remove(list.size() - 1);
         }
     }
+
+    private static void permute2(List<List<Integer>> rst , List<Integer> list, int n) {
+        if (n == list.size()) {
+            rst.add(new ArrayList<Integer>(list));
+        }else {
+            for (int i = n; i < list.size(); i++) {
+                Collections.swap(list, i, n);
+                permute2(rst, list, n + 1);
+                Collections.swap(list, i, n);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        List<List<Integer>> rst = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        permute2(rst, list, 0);
+        System.out.println(rst.toString());
+    }
+
 }
