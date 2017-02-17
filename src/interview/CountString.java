@@ -1,3 +1,5 @@
+package interview;
+
 /**
  * Created by pengshuang on 17/2/9.
  * 字符串的统计字符串
