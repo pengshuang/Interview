@@ -17,7 +17,8 @@ public class InterestingNum {
                     return;
                 }
                 //快速排序
-                quickSort(arr,0,n-1);
+//                quickSort(arr,0,n-1);
+                Arrays.sort(arr);
                 int minNum = 1;
                 int maxNum = 1;
                 for(int i = 1;i < n-1; i++) {
