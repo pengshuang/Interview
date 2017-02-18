@@ -30,7 +30,7 @@ public class Diaoyu {
                 System.out.println("cc");
                 System.out.println(String.format("%.2f", 1 - Math.pow(1 - p[x][y], t)));
             } else if (p[x][y] < avg){
-                System.out.println("s");
+                System.out.println("ss");
                 System.out.println(String.format("%.2f", 1 - Math.pow(1 - avg, t)));
             } else {
                 System.out.println("equal");
