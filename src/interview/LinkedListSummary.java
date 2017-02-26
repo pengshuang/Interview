@@ -20,12 +20,12 @@ public class LinkedListSummary {
         n2.next = n3;
         n3.next = n4;
         n4.next = n5;
-//        printList(n1);
+        printList(n1);
 //        getListLength(n1);
-//        reverseList(n1);
-//        printList(n4);
+        reverseList(n1);
+        printList(n5);
 //        reGetKthNodeRec(n1, 1);
-        getMiddleNode(n1);
+//        getMiddleNode(n1);
     }
 
     private static void printList(Node head) {
@@ -57,9 +57,9 @@ public class LinkedListSummary {
         Node newHead = null;
         Node cur = head;
 
-        while (cur != null) {
-            Node preCur = cur;
-            cur = cur.next;
+        while (head != null) {
+            Node preCur = head;
+            head = head.next;
             preCur.next = newHead;
             newHead = preCur;
         }
