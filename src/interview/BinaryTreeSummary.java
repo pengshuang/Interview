@@ -371,7 +371,7 @@ public class BinaryTreeSummary {
 
         root.left = right;
         root.right = left;
-        return right;
+        return root;
     }
     // 破坏原来的树
     public static TreeNode mirrorCopyRec(TreeNode root) {
