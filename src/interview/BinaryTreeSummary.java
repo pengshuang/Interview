@@ -1,17 +1,10 @@
 package interview;
 
-import com.sun.org.apache.regexp.internal.RE;
-import org.omg.CORBA.MARSHAL;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
-import java.util.jar.Pack200;
 
-/**
- * Created by pengshuang on 17/2/4.
- */
 public class BinaryTreeSummary {
     /*
                  1
@@ -34,8 +27,10 @@ public class BinaryTreeSummary {
         r2.right = r5;
         r3.right = r6;
 
-        Result count = getMaxDistanceRec(r1);
-        System.out.print(count.maxDistance);
+//        Result count = getMaxDistanceRec(r1);
+//        System.out.print(count.maxDistance);
+        int count = getNodeNumRec(r1);
+        System.out.println(count);
     }
 
     private static class TreeNode {

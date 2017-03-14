@@ -31,17 +31,22 @@ public class wanjia {
                 int total = 100;
                 int[] value = new int[n];
                 int[] connect = new int[n];
-                boolean[][] isConnect = new boolean[n][n];
+                int[] max = new int[n];
+                for (int i = 0; i < n; i++) {
+                    max[i] = -1;
+                }
+                HashMap<Integer, ArrayList<Integer>> isConnect = new HashMap<>();
                 for (int i = 0; i < n; i++) {
                     value[i] = sc.nextInt();
                     connect[i] = sc.nextInt();
+                    ArrayList<Integer> c = new ArrayList<>();
                     for (int j = 0; j < connect[i]; j++) {
                         int next = sc.nextInt() - 1;
-                        isConnect[i][next] = true;
+                        c.add(next);
+                        isConnect.put(i, c);
                     }
                 }
-                int start = 0;
-                boolean flag = dfs(total, isConnect, value, start);
+                boolean flag = dfs(total, isConnect,value, max, 0);
                 if (flag){
                     System.out.println("winnable");
                 }else {
@@ -50,15 +55,17 @@ public class wanjia {
             }
         }
 
-        private static boolean dfs(int total, boolean[][] isConnect, int[] value, int start){
-            total += value[start];
-            if (total > 0 && isConnect[start][isConnect.length-1]
-                    && (total + value[isConnect.length-1] >= 0)){
+        private static boolean dfs(int total, HashMap<Integer, ArrayList<Integer>>  isConnect, int[] value, int[] max, int start){
+            if (total <= 0 || total <= max[start] )
+                return false;
+            if (start == value.length - 1)
                 return true;
-            }
-            for (int i = 0; i < isConnect.length && i != start; i++) {
-                if (isConnect[start][i] && (total + value[i] > 0)){
-                    return dfs(total, isConnect, value, i);
+            max[start] = Math.max(max[start], total);
+            for (int i = 0; i < isConnect.get(start).size(); i++) {
+                int next = isConnect.get(start).get(i);
+                int nextValue = total + value[next];
+                if (dfs(nextValue, isConnect, value, max, next)){
+                    return true;
                 }
             }
             return false;

@@ -1,6 +1,5 @@
 package interview;
 
-import com.sun.glass.events.NpapiEvent;
 import util.Node;
 
 import java.util.HashMap;
@@ -55,13 +54,12 @@ public class LinkedListSummary {
             return head;
 
         Node newHead = null;
-        Node cur = head;
 
         while (head != null) {
-            Node preCur = head;
+            Node pre = head;
             head = head.next;
-            preCur.next = newHead;
-            newHead = preCur;
+            pre.next = newHead;
+            newHead = pre;
         }
         return newHead;
     }
