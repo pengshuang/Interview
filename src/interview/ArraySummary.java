@@ -1,10 +1,5 @@
 package interview;
 
-import java.util.Map;
-
-/**
- * Created by pengshuang on 17/2/7.
- */
 public class ArraySummary {
     int[] buffer = new int[100];
 
