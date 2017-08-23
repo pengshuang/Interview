@@ -26,7 +26,8 @@ public class QuickSortNonRecursion {
             int right = s.pop();
             int left = s.pop();
             //如果最大索引小于等于左边索引，说明结束了
-            if (right <= left) continue;
+            if (right < left)
+                continue;
 
             int i = partition(array, left, right);
             if (left < i - 1) {
@@ -44,7 +45,7 @@ public class QuickSortNonRecursion {
     {
         int temp;
         int i=first,j=end;
-        if(first<end)
+        if(first < end)
         {
             temp=data[i];
             //当i=j的时候，则说明扫描完成了
