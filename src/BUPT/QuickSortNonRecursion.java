@@ -1,5 +1,6 @@
 package BUPT;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -10,9 +11,7 @@ public class QuickSortNonRecursion {
         QuickSortNonRecursion qsnr = new QuickSortNonRecursion();
         int[] array = {0, 2, 11, 121, 18, 99, 3, 5, 101, 22, 9, 100};
         qsnr.quicksort(array);
-        for (int i : array) {
-            System.out.print(i + "  ");
-        }
+        System.out.print(Arrays.toString(array));
     }
 
     public void quicksort(int[] array) {
