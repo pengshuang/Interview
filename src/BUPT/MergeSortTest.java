@@ -22,7 +22,6 @@ public class MergeSortTest {
         //使用非递归的方式来实现归并排序
         int len = arr.length;
         int k = 1;
-
         while(k < len)
         {
             MergePass(arr, k, len);
