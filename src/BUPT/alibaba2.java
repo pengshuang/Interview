@@ -23,7 +23,11 @@ public class alibaba2 {
     static int quickSelect(int[] a, int lo, int hi, int k) {
         int i = lo, j = hi, pivot = a[hi];
         while (i < j) {
-            if (a[i++] > pivot) swap(a, --i, --j);
+            if (a[i] > pivot) {
+                swap(a, i, j);
+                i++;
+                j--;
+            }
         }
         swap(a, i, hi);
 
