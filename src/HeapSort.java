@@ -11,28 +11,31 @@ public class HeapSort {
         System.out.println(Arrays.toString(nums));
     }
 
-    public static void heapSort(int[] nums) {
+    static void heapSort(int[] nums) {
         int n = nums.length;
         int firstNonleaf = n/2 - 1;
+//        先建立一个大根堆
         for (int i = firstNonleaf; i >= 0 ; i--) {
-            max_heapfy(nums, i, n - 1);
+            max_heapfy(nums, i, n-1);
         }
-        for (int end = n - 1; end > 0; end--) {
+//        再进行堆排序
+        for (int end = n-1; end > 0; end--) {
             swap(nums, end, 0);
-            max_heapfy(nums, 0, end - 1);
+            max_heapfy(nums, 0, end-1);
         }
     }
 
-    public static void max_heapfy(int[] nums, int start, int end) {
+    static void max_heapfy(int[] nums, int start, int end) {
         int root = start;
         while (true) {
-//            调整节点的子结点
+//          调整节点的子结点
             int child = root * 2 + 1;
+//          超出数组范围的话, 则 break
             if (child > end) {
                 break;
             }
             if (child + 1 < end && nums[child] < nums[child+1])
-//                取较大的子节点
+//          取较大的子节点
                 child += 1;
             if (nums[root] < nums[child]) {
                 swap(nums, root, child);
@@ -43,7 +46,7 @@ public class HeapSort {
         }
     }
 
-    public static void swap(int[] nums, int l, int r) {
+    static void swap(int[] nums, int l, int r) {
         int temp = nums[l];
         nums[l] = nums[r];
         nums[r] = temp;
